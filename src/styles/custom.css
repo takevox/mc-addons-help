@@ -1,0 +1,12 @@
+/* Kroki で描いた図。PlantUML の図は背景が透明で文字が黒いため、
+   ダークモードでも読めるよう白い台紙の上に表示する */
+.sl-markdown-content img.kroki-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: #fff;
+  border: 1px solid var(--sl-color-gray-5);
+}

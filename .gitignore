@@ -1,0 +1,17 @@
+# ビルド成果物
+dist/
+.astro/
+
+# 依存パッケージ
+node_modules/
+
+# ログ
+npm-debug.log*
+
+# 環境変数
+.env
+.env.*
+
+# OS / エディタ
+.DS_Store
+Thumbs.db
