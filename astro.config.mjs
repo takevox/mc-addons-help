@@ -53,6 +53,8 @@ export default defineConfig({
         { label: "拡張経験値システム", items: [{ autogenerate: { directory: "eeps" } }] },
         { label: "ソートスティック", items: [{ autogenerate: { directory: "sortstick" } }] },
         { label: "Enhanced Recipes", items: [{ autogenerate: { directory: "enhancedrecipes" } }] },
+        { label: "墓石", items: [{ autogenerate: { directory: "gravestone" } }] },
+        { label: "リサイクラー", items: [{ autogenerate: { directory: "recycler" } }] },
       ],
     }),
   ],

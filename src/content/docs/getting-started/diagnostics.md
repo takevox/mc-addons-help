@@ -11,10 +11,12 @@ sidebar:
 
 | アドオン | 表示されるメッセージ |
 | --- | --- |
-| ブックマーク | `[BOOKMARK] スクリプト v1.0.7 を読み込みました` |
-| 拡張経験値システム | `[EEPS] スクリプト v1.0.5 を読み込みました` |
-| ソートスティック | `[SORTSTICK] スクリプト v1.0.1 を読み込みました` |
-| Enhanced Recipes | `[ENHANCEDRECIPES] スクリプト v1.0.1 を読み込みました` |
+| ブックマーク | `[BOOKMARK] スクリプト v1.0.16 を読み込みました` |
+| 拡張経験値システム | `[EEPS] スクリプト v1.0.12 を読み込みました` |
+| ソートスティック | `[SORTSTICK] スクリプト v1.0.4 を読み込みました` |
+| Enhanced Recipes | `[ENHANCEDRECIPES] スクリプト v1.0.8 を読み込みました` |
+| 墓石 | `[GRAVESTONE] スクリプト v1.2.0 を読み込みました` |
+| リサイクラー | `[RECYCLER] スクリプト v1.1.0 を読み込みました` |
 
 赤字で **読み込みエラー** が続けて表示された場合は、そのアドオンの一部の機能が動いていません。
 
@@ -28,6 +30,8 @@ sidebar:
 | 拡張経験値システム | `/scriptevent eeps:diag` |
 | ソートスティック | `/scriptevent sortstick:diag` |
 | Enhanced Recipes | `/scriptevent enhancedrecipes:diag` |
+| 墓石 | `/scriptevent gravestone:diag` |
+| リサイクラー | `/scriptevent recycler:diag` |
 
 実行すると、バージョンに加えて次の情報が表示されます。
 
