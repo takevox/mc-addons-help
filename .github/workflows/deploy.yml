@@ -1,0 +1,47 @@
+# main への push でサイトをビルドし、publish ブランチへ配置する。
+# GitHub Pages は publish ブランチのルートを公開元にしている。
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# 連続して push されたときは、最新のビルドだけを配置する
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    services:
+      # 図表（plantuml / graphviz）のレンダリングに使う Kroki
+      kroki:
+        image: yuzutech/kroki
+        ports:
+          - 8000:8000
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          KROKI_SERVER: http://localhost:8000
+
+      # dist/ の中身だけを publish ブランチに置く（.nojekyll も自動で追加される）
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: publish
+          publish_dir: ./dist
+          commit_message: "サイトを更新"
