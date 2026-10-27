@@ -17,7 +17,10 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    # ubuntu-latest は 2026-10-19 から Ubuntu 26 への移行が始まり、
+    # 完了まで ubuntu-24.04 / 26.04 のどちらに解決されるか不定になるため、
+    # 移行完了まで明示的に 24.04 へ固定する
+    runs-on: ubuntu-24.04
     services:
       # 図表（plantuml / graphviz）のレンダリングに使う Kroki
       kroki:
