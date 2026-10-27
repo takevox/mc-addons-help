@@ -1,5 +1,10 @@
-# main への push でサイトをビルドし、publish ブランチへ配置する。
-# GitHub Pages は publish ブランチのルートを公開元にしている。
+# main への push でサイトをビルドし、GitHub Pages へ直接デプロイする。
+# （以前は publish ブランチへ push し、そのブランチを Pages の公開元にしていたが、
+#  ブランチ更新後に Pages 側の再デプロイが自動で追従しないことがあったため、
+#  Actions から直接デプロイする公式の方式に切り替えた）
+#
+# 前提: リポジトリの Settings > Pages > Build and deployment > Source を
+# 「GitHub Actions」に変更しておくこと（ブランチ指定は不要になる）。
 name: Deploy
 
 on:
@@ -8,15 +13,17 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 # 連続して push されたときは、最新のビルドだけを配置する
 concurrency:
-  group: deploy
+  group: pages
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     # ubuntu-latest は 2026-10-19 から Ubuntu 26 への移行が始まり、
     # 完了まで ubuntu-24.04 / 26.04 のどちらに解決されるか不定になるため、
     # 移行完了まで明示的に 24.04 へ固定する
@@ -41,10 +48,18 @@ jobs:
         env:
           KROKI_SERVER: http://localhost:8000
 
-      # dist/ の中身だけを publish ブランチに置く（.nojekyll も自動で追加される）
-      - uses: peaceiris/actions-gh-pages@v4
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: publish
-          publish_dir: ./dist
-          commit_message: "サイトを更新"
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

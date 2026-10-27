@@ -26,12 +26,12 @@ docker run -d --name kroki -p 8000:8000 yuzutech/kroki
 ## 公開
 
 GitHub Pages で https://takevox.github.io/mc-addons-help/ に公開しています。
-公開元は `publish` ブランチのルートで、中身は `dist/` のビルド結果だけです（ソースは `main`）。
+リポジトリの Settings > Pages > Build and deployment > Source は「GitHub Actions」です。
 
-`main` に push すると、GitHub Actions（`.github/workflows/deploy.yml`）がビルドして `publish` に配置します。
-手動で配置し直したいときは、Actions の **Deploy** ワークフローを **Run workflow** で実行します。
+`main` に push すると、GitHub Actions（`.github/workflows/deploy.yml`）がビルドして
+`actions/deploy-pages` で直接デプロイします（ブランチを経由しません）。
+手動でデプロイし直したいときは、Actions の **Deploy** ワークフローを **Run workflow** で実行します。
 
-- `publish` は自動で上書きされるので、直接編集しないでください。
 - サイトは `/mc-addons-help/` 配下に置かれます。本文のリンクは `/bookmark/` のようにルートから書けば、ビルド時に自動で `/mc-addons-help` が付きます。
 
 ## ページの追加
