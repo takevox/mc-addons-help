@@ -28,16 +28,10 @@ docker run -d --name kroki -p 8000:8000 yuzutech/kroki
 GitHub Pages で https://takevox.github.io/mc-addons-help/ に公開しています。
 公開元は `publish` ブランチのルートで、中身は `dist/` のビルド結果だけです（ソースは `main`）。
 
-```sh
-npm run build
-git worktree add ../mc-addons-help-publish publish
-cp -r dist/. ../mc-addons-help-publish/
-cd ../mc-addons-help-publish
-git add -A && git commit -m "サイトを更新" && git push origin publish
-cd - && git worktree remove ../mc-addons-help-publish
-```
+`main` に push すると、GitHub Actions（`.github/workflows/deploy.yml`）がビルドして `publish` に配置します。
+手動で配置し直したいときは、Actions の **Deploy** ワークフローを **Run workflow** で実行します。
 
-- `publish` には `.nojekyll` を置いています（`_astro/` フォルダを配信するため）。消さないでください。
+- `publish` は自動で上書きされるので、直接編集しないでください。
 - サイトは `/mc-addons-help/` 配下に置かれます。本文のリンクは `/bookmark/` のようにルートから書けば、ビルド時に自動で `/mc-addons-help` が付きます。
 
 ## ページの追加
